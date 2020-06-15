@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Console\ReadModel;
 
-use App\Console\AppProjectionCommand;
+use App\Console\AppPersistentProjectionCommand;
 use App\Model\Customer\Event\CustomerEmailChanged;
 use App\Model\Customer\Event\CustomerRegistered;
 use App\Projection\Customer\CustomerReadModel;
 use App\Projection\Streams;
 
-final class CustomerProjectionCommand extends AppProjectionCommand
+final class CustomerPersistentProjectionCommand extends AppPersistentProjectionCommand
 {
     protected $signature = 'app:read_model-customer';
 

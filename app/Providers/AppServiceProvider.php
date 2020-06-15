@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         $this->setUpApp();
 
         $this->app->register(CustomerServiceProvider::class);
+        $this->app->register(BankAccountServiceProvider::class);
     }
 
     public function boot(): void

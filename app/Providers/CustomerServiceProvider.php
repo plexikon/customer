@@ -17,6 +17,8 @@ use Plexikon\Chronicle\Support\Contracts\Snapshot\SnapshotStore;
 
 final class CustomerServiceProvider extends ServiceProvider implements DeferrableProvider
 {
+    public const SNAPSHOT_SERVICE_ID = 'snapshots.customer';
+
     public array $bindings = [
       UniqueEmail::class => UniqueEmailFromRead::class
     ];
@@ -30,7 +32,7 @@ final class CustomerServiceProvider extends ServiceProvider implements Deferrabl
             return new ChronicleCustomerRepository($repository);
         });
 
-        $this->app->singleton(SnapshotStore::class, function (Application $app): SnapshotStore {
+        $this->app->singleton(self::SNAPSHOT_SERVICE_ID, function (Application $app): SnapshotStore {
             return $app->get(ChronicleSnapshotManager::class)
                 ->createSnapshotStore('pgsql');
         });
@@ -40,7 +42,8 @@ final class CustomerServiceProvider extends ServiceProvider implements Deferrabl
     {
         return [
             CustomerCollection::class,
-            SnapshotStore::class
+            SnapshotStore::class,
+            self::SNAPSHOT_SERVICE_ID
         ];
     }
 }

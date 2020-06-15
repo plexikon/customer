@@ -15,7 +15,8 @@ final class AppResetCommand extends Command
     protected $signature = 'app:reset';
 
     protected array $streams = [
-        Streams::CUSTOMER
+        Streams::CUSTOMER,
+        Streams::BANK_ACCOUNT,
     ];
 
     private Chronicle $chronicle;

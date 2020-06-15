@@ -16,7 +16,7 @@ use Plexikon\Reporter\Contracts\Message\Messaging;
  * @method ProjectionProjector emit(Messaging $event)
  * @method ProjectionProjector linkTo(string $streamName, Messaging $event)
  */
-class AppProjectionCommand extends Command
+class AppPersistentProjectionCommand extends Command
 {
     protected function projectorManager(): ProjectorManager
     {

@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Model\Customer;
 
+use App\Exceptions\CustomerDomainException;
+use App\Model\BankAccount\BankAccount;
+use App\Model\BankAccount\BankAccountId;
 use App\Model\Customer\Event\CustomerEmailChanged;
 use App\Model\Customer\Event\CustomerRegistered;
 use Plexikon\Chronicle\Support\Aggregate\HasAggregateRoot;
@@ -31,6 +34,15 @@ final class Customer implements AggregateRoot
         }
 
         $this->recordThat(CustomerEmailChanged::withData($this->customerId(), $email, $this->email));
+    }
+
+    public function createFirstBankAccount(CustomerId $customerId, BankAccountId $bankAccountId): BankAccount
+    {
+        if (!$customerId->equalsTo($this->customerId())) {
+            throw new CustomerDomainException("Invalid customer id {$customerId->toString()} given");
+        }
+
+        return BankAccount::create($bankAccountId, $customerId);
     }
 
     /**

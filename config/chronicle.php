@@ -62,8 +62,14 @@ return [
         'customer-stream' => [
             'aggregate_class_name' => \App\Model\Customer\Customer::class,
             'cache' => true,
-            'snapshot_store_id' => \Plexikon\Chronicle\Support\Contracts\Snapshot\SnapshotStore::class,
-        ]
+            'snapshot_store_id' => null,
+        ],
+
+        'bank_account-stream' => [
+            'aggregate_class_name' => \App\Model\BankAccount\BankAccount::class,
+            'cache' => true,
+            'snapshot_store_id' => null,
+        ],
     ],
 
     'snapshots' => [

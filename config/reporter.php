@@ -110,6 +110,9 @@ return [
                 'map' => [
                     'register-customer' => \App\Model\Customer\Handler\RegisterCustomerHandler::class,
                     'change-customer-email' => \App\Model\Customer\Handler\ChangeCustomerEmailHandler::class,
+                    'create-first-bank-account' => \App\Model\BankAccount\Handler\CreateFirstBankAccountHandler::class,
+                    'deposit-money' => \App\Model\BankAccount\Handler\DepositMoneyHandler::class,
+                    'withdraw-money' => \App\Model\BankAccount\Handler\WithdrawMoneyHandler::class,
 
                 ]
             ]
@@ -124,8 +127,13 @@ return [
                 'handler_method' => 'onEvent',
                 'middleware' => [],
                 'map' => [
-                    'customer-registered' => [],
+                    'customer-registered' => [
+                        \App\ProcessManager\CreateFirstBankAccountOnCustomerRegistration::class,
+                    ],
                     'customer-email-changed' => [],
+                    'first-bank-account-created' => [],
+                    'money-deposit' => [],
+                    'money-withdrawn' => [],
                 ]
             ]
         ],
@@ -138,7 +146,13 @@ return [
                 ],
                 'handler_method' => 'query',
                 'middleware' => [],
-                'map' => []
+                'map' => [
+                    'get-paginated-customers' => \App\Model\Customer\Handler\GetPaginatedCustomerHandler::class,
+                    'get-customer-by-id' => \App\Model\Customer\Handler\GetCustomerByIdHandler::class,
+                    'get-customer-of-bank-account-id' => \App\Model\BankAccount\Handler\GetCustomerOfBankAccountIdHandler::class,
+                    'get-paginated-bank-accounts' => \App\Model\BankAccount\Handler\GetPaginatedBankAccountsHandler::class,
+
+                ]
             ]
         ]
     ]
